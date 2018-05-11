@@ -4,7 +4,7 @@ Sesam öffne dich
 ## Installation
 
 ```
-virtualenv -c /usr/bin/python3 unlock
+virtualenv -p /usr/bin/python3 unlock
 cd unlock
 git clone git@github.com:GlobalStudioES/UnLock.git
 cd UnLock
