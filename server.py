@@ -28,4 +28,5 @@ def open():
         return {'success': False, 'error': 'No User'}
 
 
-run(host='localhost', port=8080, reloader=True)
+run(host='localhost', port=8080, reloader=True)  # Dev
+# run(host='192.168.1.60', port=8080)
