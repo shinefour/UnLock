@@ -4,9 +4,9 @@ import time
 from multiprocessing import Process, Event
 from datetime import datetime
 
-# debug()
+debug()
 pin = 21
-sym_rpi = False
+sym_rpi = True
 if not sym_rpi:
     import RPi.GPIO as GPIO
 

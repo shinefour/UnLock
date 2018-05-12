@@ -24,13 +24,6 @@ body {
     text-align: center;
 }
 
-@media (-webkit-device-pixel-ratio : 3), (-webkit-device-pixel-ratio : 2){
-    #wrapper {
-        max-width: 100%;
-    }
-}
-
-
 #video_image {
     height: 100%;
     width: 100%;
@@ -92,7 +85,11 @@ body {
     min-height: 45px;
 }
 .error {
+    letter-spacing: normal;
     color: firebrick;
+}
+.text {
+    letter-spacing: normal;
 }
 
 #top_display {
@@ -116,4 +113,40 @@ input {
     background: none;
     border: none;
     width: 100%;
+    margin-left: -5px;
+}
+
+
+@media (-webkit-device-pixel-ratio : 3), (-webkit-device-pixel-ratio : 2){
+    #wrapper {
+        max-width: 100%;
+    }
+
+    .key {
+        margin: 2vw;
+         -webkit-border-radius: 25vw;
+        -moz-border-radius: 25vw;
+        border-radius: 25vw;
+        font-size: 10vw;
+        line-height: 25vw;
+    }
+
+    .number {
+        width: 25vw;
+    }
+
+    .clear {
+        width: 50vw;
+    }
+
+    input {
+        font-size: 10vw;
+    }
+
+    #stars {
+        font-size: 8vw;
+        letter-spacing: 5vw;
+        line-height: 10vw;
+        min-height: 12vw;
+    }
 }

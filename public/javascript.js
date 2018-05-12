@@ -40,7 +40,7 @@ $( document ).ready(function() {
     }
     $('.number').on('click', function(){
         if(!$('#user-name').val()){
-            updateMessage('Type Name');
+            updateMessage('<span class="text">Type Name</span>');
         } else {
             if (code.length < 4) {
                 code += $(this).data('nr');
@@ -48,7 +48,7 @@ $( document ).ready(function() {
             }
 
             if (code.length === 4) {
-                updateMessage('opening ...');
+                updateMessage('<span class="text">opening ...</span>');
                 $.post({
                     url: '/open',
                     data: JSON.stringify({'user': $('#user-name').val(), 'code': code}),
@@ -56,7 +56,7 @@ $( document ).ready(function() {
                     contentType : 'application/json',
                     success: function(response){
                         if(response.success){
-                            updateMessage('opened');
+                            updateMessage('<span class="text">' + 'opened'+ '</span>');
                         } else {
                             updateMessage('<span class="error">' + response.error + '</span>');
                         }
