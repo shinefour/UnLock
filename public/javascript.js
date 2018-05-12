@@ -5,7 +5,6 @@ $( document ).ready(function() {
     var image_url = 'http://192.168.0.51/IMAGE.JPG';
 
     function updateBackground(){
-        console.log(do_update_image);
         if(!do_update_image){ return; }
         var random = 1 + Math.floor(Math.random() * 10000);
         var img = new Image();
@@ -20,7 +19,7 @@ $( document ).ready(function() {
     }
 
     // check if camera is availabale
-    $.get('image_url')
+    $.get(image_url)
         .done(function(){
             updateBackground();
             setInterval(
@@ -30,9 +29,6 @@ $( document ).ready(function() {
             );
         })
         .fail(function(){ do_update_image = false; });
-
-
-
 
     var code = '';
     function updateMessage(message){
