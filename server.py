@@ -46,13 +46,13 @@ def css(file_path):
 
 @bottle.get("/")
 def index(session):
-    return bottle.template(os.path.join(SCRIPT_PATH, './templates/index.html'), user=session.get('user', ''),
+    return bottle.template(os.path.join(SCRIPT_PATH, 'templates/index.html'), user=session.get('user', ''),
                            image_url=config.get('image_url', ''))
 
 
 @bottle.get("/update_code")
 def update_code(session):
-    return bottle.template(os.path.join(SCRIPT_PATH, '/templates/update_code.html'), user=session.get('user', ''))
+    return bottle.template(os.path.join(SCRIPT_PATH, 'templates/update_code.html'), user=session.get('user', ''))
 
 
 @bottle.post("/open")
