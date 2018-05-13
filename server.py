@@ -1,4 +1,4 @@
-from bottle import run, template, static_file, get, debug, post, request, app
+import bottle
 import bottle_session
 import time
 from multiprocessing import Process, Event
@@ -6,9 +6,11 @@ from datetime import datetime
 from config import config
 import sqlite3
 import logging
+import os
 
 kill_event = Event()
 open_event = Event()
+SCRIPT_PATH = os.path.abspath(os.path.dirname(__file__))
 
 log = logging.getLogger(__name__)
 log.setLevel(logging.INFO)
@@ -37,31 +39,32 @@ def opener():
 
 
 # VIEWS
-@get("/public/<file_path:re:.*\.(js|css|png|xml|ico|webmanifest|svg)>")
+@bottle.get("/public/<file_path:re:.*\.(js|css|png|xml|ico|webmanifest|svg)>")
 def css(file_path):
-    return static_file(file_path, root="public")
+    return bottle.static_file(file_path, root=os.path.join(SCRIPT_PATH, 'public'))
 
 
-@get("/")
+@bottle.get("/")
 def index(session):
-    return template('templates/index.html', user=session.get('user', ''), image_url=config.get('image_url', ''))
+    return bottle.template(os.path.join(SCRIPT_PATH, './templates/index.html'), user=session.get('user', ''),
+                           image_url=config.get('image_url', ''))
 
 
-@get("/update_code")
+@bottle.get("/update_code")
 def update_code(session):
-    return template('templates/update_code.html', user=session.get('user', ''))
+    return bottle.template(os.path.join(SCRIPT_PATH, '/templates/update_code.html'), user=session.get('user', ''))
 
 
-@post("/open")
+@bottle.post("/open")
 def open_view(session):
-    conn = sqlite3.connect('./db/users.db')
+    conn = sqlite3.connect(os.path.join(SCRIPT_PATH, './db/users.db'))
     c = conn.cursor()
-    c.execute("""SELECT code FROM users WHERE name = ?""", (request.json.get('user'),))
+    c.execute("""SELECT code FROM users WHERE name = ?""", (bottle.request.json.get('user'),))
     user = c.fetchone()
     if user:
-        if user[0] == request.json.get('code'):
+        if user[0] == bottle.request.json.get('code'):
             open_event.set()
-            session['user'] = request.json.get('user')
+            session['user'] = bottle.request.json.get('user')
             return {'success': True}
         else:
             return {'success': False, 'error': 'Wrong Code'}
@@ -69,14 +72,16 @@ def open_view(session):
         return {'success': False, 'error': 'No User'}
 
 
-@post("/update_code")
+@bottle.post("/update_code")
 def open_view():
     conn = sqlite3.connect('./db/users.db')
     c = conn.cursor()
-    c.execute("""SELECT code FROM users WHERE name = ?""", (request.json.get('user'),))
+    c.execute("""SELECT code FROM users WHERE name = ?""", (bottle.request.json.get('user'),))
     user = c.fetchone()
-    if user and user[0] == request.json.get('old_code') and request.json.get('new_code', False):
-        c.execute("""UPDATE users set code = ? WHERE name = ?""", (str(request.json.get('new_code')), request.json.get('user'),))
+    if user and user[0] == bottle.request.json.get('old_code') and bottle.request.json.get('new_code', False):
+        c.execute("""UPDATE users set code = ? WHERE name = ?""", (
+            str(bottle.request.json.get('new_code')),
+            bottle.request.json.get('user'),))
         conn.commit()
         return {'success': True}
     else:
@@ -91,14 +96,14 @@ if __name__ == '__main__':
         p = Process(target=opener)
         p.start()
 
-        webserver = app()
-        webserver.install(bottle_session.SessionPlugin(cookie_lifetime=600))
+        web_server = bottle.app()
+        web_server.install(bottle_session.SessionPlugin(cookie_lifetime=600))
 
         if config.get('debug'):
-            debug()
-            run(app=webserver, host=config.get('local_host'), port=config.get('local_port', 80), reloader=True)
+            bottle.debug()
+            bottle.run(app=web_server, host=config.get('local_host'), port=config.get('local_port', 80), reloader=True)
         else:
-            run(app=webserver, host=config.get('local_host'), port=config.get('local_port', 80))
+            bottle.run(app=web_server, host=config.get('local_host'), port=config.get('local_port', 80))
     finally:
         GPIO.output(int(config.get('opener_pin')), GPIO.LOW)
         GPIO.cleanup()
