@@ -90,7 +90,7 @@ def open_view():
 
 if __name__ == '__main__':
     try:
-        GPIO.setmode(GPIO.BOARD)
+        GPIO.setmode(GPIO.BCM)
         GPIO.setup(int(config.get('opener_pin')), GPIO.OUT)
 
         p = Process(target=opener)
