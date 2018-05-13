@@ -74,7 +74,7 @@ def open_view(session):
 
 @bottle.post("/update_code")
 def open_view():
-    conn = sqlite3.connect('./db/users.db')
+    conn = sqlite3.connect(os.path.join(SCRIPT_PATH, './db/users.db'))
     c = conn.cursor()
     c.execute("""SELECT code FROM users WHERE name = ?""", (bottle.request.json.get('user'),))
     user = c.fetchone()
