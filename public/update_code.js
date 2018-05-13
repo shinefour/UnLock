@@ -4,7 +4,9 @@ $( document ).ready(function() {
     }
 
     $('#update_button').on('click', function(){
-        $.post({
+        $.ajax({
+            async: false,
+            type: 'POST',
             url: '/update_code',
             data: JSON.stringify({
                 'user': $('#user-name').val(),

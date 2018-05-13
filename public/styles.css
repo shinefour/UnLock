@@ -172,4 +172,8 @@ button:hover {
         line-height: 10vw;
         min-height: 12vw;
     }
+
+    #message {
+        font-size: 8vw;
+    }
 }
