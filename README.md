@@ -22,11 +22,9 @@ Add users to the DB
 ## config.py
 ```
 config = {
-    'camera_url': '',
-    'local_host': '192.168.1.56',
+    'local_host': 'IP',
     'local_port': 8080,
     'opener_pin': 21,
-    'sym_rpi': True,
     'debug': True,
     'image_url': 'http://192.168.0.51/IMAGE.JPG',
 }
