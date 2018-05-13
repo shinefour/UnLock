@@ -1,4 +1,4 @@
-$( document ).ready(function() {
+$(document).ready(function() {
     var background_element = $('#video_image');
     var do_update_image = true;
     FastClick.attach(document.body);
