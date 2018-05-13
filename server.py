@@ -87,7 +87,7 @@ if __name__ == '__main__':
     try:
         GPIO.setmode(GPIO.BOARD)
         GPIO.setup(int(config.get('opener_pin')), GPIO.OUT)
-        print('run first')
+
         p = Process(target=opener)
         p.start()
 
