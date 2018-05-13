@@ -2,7 +2,6 @@ $( document ).ready(function() {
     var background_element = $('#video_image');
 
     var do_update_image = true;
-    var image_url = 'http://192.168.0.51/IMAGE.JPG';
 
     function updateBackground(){
         if(!do_update_image){ return; }

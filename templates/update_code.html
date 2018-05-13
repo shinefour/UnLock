@@ -5,7 +5,7 @@
     xml:lang="es">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<title>UnLock</title>
+	<title>UnLock - update code</title>
     <link rel="stylesheet" href="/public/styles.css">
 
     <link rel="apple-touch-icon" sizes="180x180" href="/public/apple-touch-icon.png">
@@ -26,40 +26,18 @@
 
     <div id="wrapper">
         <div id="top_display">
-            <input type="text" id="user-name" name="user-name" placeholder="Username" value="{{user}}">
-            <div id="stars"></div>
+            <input type="text" id="user-name" name="user-name" placeholder="Username" value="{{user}}" required>
+            <input type="number" id="old-code" name="old-code" placeholder="Old Code (4 digits)" required>
+            <input type="number" id="new-code" name="new-code" placeholder="New Code (4 digits)" required>
+            <button id="update_button">update</button>
+            <div id="message" class="error"></div>
         </div>
+        <br  />
+        <a style="clear:both" href="/"><< return</a>
 
-        <div class="number-block">
-            <div class="row">
-                <div class="key number" data-nr="1">1</div>
-                <div class="key number" data-nr="2">2</div>
-                <div class="key number" data-nr="3">3</div>
-            </div>
-            <div class="row">
-                <div class="key number" data-nr="4">4</div>
-                <div class="key number" data-nr="5">5</div>
-                <div class="key number" data-nr="6">6</div>
-            </div>
-            <div class="row">
-                <div class="key number" data-nr="7">7</div>
-                <div class="key number" data-nr="8">8</div>
-                <div class="key number" data-nr="9">9</div>
-            </div>
-            <div class="row">
-                <div class="key number" data-nr="0">0</div>
-                <div class="key clear">clear</div>
-            </div>
-
-        </div>
-        <br />
-        <a href="/update_code">change code</a>
     </div>
 
-    <script type="text/javascript">
-        var image_url={{image_url}};
-    </script>
     <script src="/public/jquery.js" type="text/javascript"></script>
-    <script src="/public/index.js" type="text/javascript"></script>
+    <script src="/public/update_code.js" type="text/javascript"></script>
 </body>
 </html>
