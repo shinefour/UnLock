@@ -17,6 +17,9 @@ class GPIO(object):
     I2C = 42
     PWM = 43
 
+    OUT = 0
+    IN = 1
+
     @staticmethod
     def setmode(val):
         logging.info('GPIO.setmode: {}'.format(val))
