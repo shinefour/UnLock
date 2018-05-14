@@ -33,7 +33,7 @@ def opener():
             opened_time = datetime.now()
             open_event.clear()
 
-        if opened_time and (datetime.now() - opened_time).seconds > 3:
+        if opened_time and (datetime.now() - opened_time).seconds > 1:
             GPIO.output(int(config.get('opener_pin')), GPIO.LOW)
             opened_time = None
         time.sleep(1)
