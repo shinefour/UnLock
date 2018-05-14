@@ -189,4 +189,8 @@ button:hover {
     #message {
         font-size: 8vw;
     }
+
+    #video_image img {
+        margin-left: -80vw;
+    }
 }
