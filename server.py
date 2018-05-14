@@ -116,7 +116,7 @@ if __name__ == '__main__':
             bottle.debug()
             bottle.run(app=web_server, host=config.get('local_host'), port=config.get('local_port', 80), reloader=True)
         else:
-            bottle.run(app=web_server, host=config.get('local_host'), port=config.get('local_port', 80))
+            bottle.run(server='paste', app=web_server, host=config.get('local_host'), port=config.get('local_port', 80))
     finally:
         GPIO.output(int(config.get('opener_pin')), GPIO.LOW)
         GPIO.cleanup()
