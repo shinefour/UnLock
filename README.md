@@ -30,7 +30,7 @@ sqlite3 users.db
 ## Run
 
 ```
-supervisoctl start UnLock
+supervisorctl start UnLock
 ```
 
 

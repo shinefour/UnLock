@@ -7,6 +7,7 @@ from config import config
 import sqlite3
 import logging
 import os
+import requests
 
 kill_event = Event()
 open_event = Event()
@@ -46,13 +47,25 @@ def css(file_path):
 
 @bottle.get("/")
 def index(session):
-    return bottle.template(os.path.join(SCRIPT_PATH, 'templates/index.html'), user=session.get('user', ''),
-                           image_url=config.get('image_url', ''))
+    return bottle.template(os.path.join(SCRIPT_PATH, 'templates/index.html'), user=session.get('user', ''))
 
 
 @bottle.get("/update_code")
 def update_code(session):
     return bottle.template(os.path.join(SCRIPT_PATH, 'templates/update_code.html'), user=session.get('user', ''))
+
+
+@bottle.get("/camera")
+def camera():
+    image_url = config.get('image_url', False)
+    if not image_url:
+        resp = bottle.HTTPResponse(body='', status=404)
+        resp.set_header('content_type', 'image/jpeg')
+        return resp
+    image = requests.get(url=config.get('image_url'))
+    resp = bottle.HTTPResponse(body=image.content, status=image.status_code)
+    resp.set_header('content_type', 'image/jpeg')
+    return resp
 
 
 @bottle.post("/open")

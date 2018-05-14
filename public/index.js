@@ -7,7 +7,7 @@ $(document).ready(function() {
         if(!do_update_image){ return; }
         var random = 1 + Math.floor(Math.random() * 10000);
         var img = new Image();
-        img.src = image_url + '?' + random;
+        img.src = '/camera' + '?' + random;
         img.onload = function(){
             background_element.append(img);
             if (background_element.children().length > 2) {
@@ -18,7 +18,7 @@ $(document).ready(function() {
     }
 
     // check if camera is availabale
-    $.get(image_url)
+    $.get('/camera')
         .done(function(){
             updateBackground();
             setInterval(
